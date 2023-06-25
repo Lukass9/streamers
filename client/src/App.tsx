@@ -1,14 +1,32 @@
 import "./App.css";
+import Streamer from "./components/Streamer/Streamer";
 import StreamerSubmission from "./components/StreamerSubmission/StreamerSubmission";
 import StreamersList from "./components/StreamersList/StreamersList";
-import { Streamer } from "./types/types";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: (
+        <>
+          <StreamersList />
+          <StreamerSubmission />
+        </>
+      ),
+    },
+    {
+      path: "/streamer/:id",
+      element: <Streamer />,
+    },
+  ],
+  { basename: "/StreamerSubmission/" }
+);
 
 function App() {
   return (
     <>
-      <h1>Lista streamerów</h1>
-      <StreamersList />;
-      <StreamerSubmission />
+      <RouterProvider router={router} />
     </>
   );
 }

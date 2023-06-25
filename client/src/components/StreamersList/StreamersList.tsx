@@ -1,4 +1,6 @@
 import { Streamer } from "../../types/types";
+import "./StreamersList.style.css";
+
 const streamers_data = [
   {
     id: 1,
@@ -37,19 +39,24 @@ const streamers_data = [
 const StreamersList = () => {
   const streamers: Streamer[] | null = streamers_data;
   return (
-    <>
+    <div className='WrappStreamersList'>
       {streamers.map((streamer) =>
         streamers ? (
-          <div key={streamer.id}>
-            <p>{streamer.name}</p>
-            <p>{streamer.striming_platform}</p>
-            <p>{streamer.desc}</p>
+          <div key={streamer.id} className='WrappCard'>
+            <div className='nameWrapp'>
+              <h2>{streamer.name}</h2>
+              <h5>{streamer.striming_platform}</h5>
+            </div>
+            <div className='vote'>
+              <span> +{streamer.upvote}</span>
+              <span> -{streamer.downvote}</span>
+            </div>
           </div>
         ) : (
           <div>Not here yet</div>
         )
       )}
-    </>
+    </div>
   );
 };
 

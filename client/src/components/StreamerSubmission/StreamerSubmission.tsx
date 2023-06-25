@@ -1,10 +1,10 @@
-import React from "react";
+import "./StreamerSubmission.style.css";
 
 const StreamerSubmission = () => {
   return (
-    <>
+    <div className='WrappStreamerSubmission'>
       <form action=''>
-        <fieldset>
+        <fieldset className='subField'>
           <legend>Add new streamer</legend>
           <div className='inp'>
             <input type='text' id='name' name='name' required />
@@ -18,7 +18,7 @@ const StreamerSubmission = () => {
               <option value='Kick'>Kick</option>
               <option value='Rumble'>Rumble</option>
             </select>
-            <label htmlFor='striming_platform'> Streamer name </label>
+            <label htmlFor='striming_platform'> Striming platform </label>
           </div>
           <div className='inp'>
             <textarea id='desc' name='desc' required />
@@ -26,7 +26,7 @@ const StreamerSubmission = () => {
           </div>
         </fieldset>
       </form>
-    </>
+    </div>
   );
 };
 
