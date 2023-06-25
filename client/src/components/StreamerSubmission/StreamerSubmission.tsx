@@ -24,6 +24,7 @@ const StreamerSubmission = () => {
             <textarea id='desc' name='desc' required />
             <label htmlFor='desc'> Description </label>
           </div>
+          <button>Add new streamer</button>
         </fieldset>
       </form>
     </div>

@@ -1,5 +1,5 @@
 import "./App.css";
-import Streamer from "./components/Streamer/Streamer";
+import StreamerCard from "./components/Streamer/StreamerCard";
 import StreamerSubmission from "./components/StreamerSubmission/StreamerSubmission";
 import StreamersList from "./components/StreamersList/StreamersList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -17,7 +17,7 @@ const router = createBrowserRouter(
     },
     {
       path: "/streamer/:id",
-      element: <Streamer />,
+      element: <StreamerCard />,
     },
   ],
   { basename: "/StreamerSubmission/" }

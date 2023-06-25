@@ -1,5 +1,7 @@
 import { Streamer } from "../../types/types";
+import { useEffect, useState } from "react";
 import "./StreamersList.style.css";
+import { Link } from "react-router-dom";
 
 const streamers_data = [
   {
@@ -37,7 +39,11 @@ const streamers_data = [
 ];
 
 const StreamersList = () => {
-  const streamers: Streamer[] | null = streamers_data;
+  // const streamers: Streamer[] | null = streamers_data;
+  const [streamers, setStreamers] = useState<Streamer[]>([]);
+  useEffect(() => {
+    setStreamers(streamers_data);
+  }, []);
   return (
     <div className='WrappStreamersList'>
       {streamers.map((streamer) =>
@@ -51,6 +57,7 @@ const StreamersList = () => {
               <span> +{streamer.upvote}</span>
               <span> -{streamer.downvote}</span>
             </div>
+            <Link to={`/streamer/${streamer.id}`}>Read more</Link>
           </div>
         ) : (
           <div>Not here yet</div>
