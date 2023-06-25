@@ -1,18 +1,17 @@
 import { db } from "../db.js";
 
 export const addStreamer = (req, res) => {
-  const q = "INSERT INTO Streamers(`id`, `name`, `striming_platform`, `desc`)";
+  const q =
+    "INSERT INTO Streamers ( `name`, `striming_platform`, `desc`) VALUES (?,?,?)";
 
-  const values = [
-    req.body.id,
-    req.body.name,
-    req.body.striming_platform,
-    req.body.desc,
-  ];
+  const values = [req.body.name, req.body.striming_platform, req.body.desc];
 
-  db.all(q, [values], (err, data) => {
-    if (err) return res.status(500).json(err);
-    return res.json("Streamers has been added.");
+  db.run(q, values, (err, data) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+    return res.status(201).json("Streamers has been added.");
   });
 };
 export const getStreamers = (req, res) => {

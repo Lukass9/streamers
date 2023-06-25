@@ -47,7 +47,7 @@ const StreamersList = () => {
       try {
         const res = await axios.get(`http://localhost:8800/api/streamers/`);
         setStreamers(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       } catch (err) {
         console.log(err);
       }
