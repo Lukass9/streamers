@@ -1,0 +1,21 @@
+.WrappStreamersList{
+  width: 15%;
+}
+.WrappCard{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 15px;
+  margin: 5px;
+}
+.nameWrapp{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.vote{
+  display: flex;
+}
+.vote span{
+  margin: 10px;
+}

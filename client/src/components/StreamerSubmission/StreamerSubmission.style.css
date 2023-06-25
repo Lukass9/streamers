@@ -1,0 +1,10 @@
+.subField{
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 15px;
+  width: 250px;
+}
+
+.WrappStreamerSubmission{
+  width: 65%;
+}
