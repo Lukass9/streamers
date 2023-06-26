@@ -1,7 +1,7 @@
 import { Streamer } from "../../types/types";
 import { useEffect, useState } from "react";
 import "./StreamersList.style.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 // const streamers_data = [
@@ -41,7 +41,8 @@ import axios from "axios";
 
 const StreamersList = () => {
   // const streamers: Streamer[] | null = streamers_data;
-  const [streamers, setStreamers] = useState<Streamer[]>([]);
+  const navigate = useNavigate();
+  const [streamers, setStreamers] = useState<Streamer[] | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -53,26 +54,74 @@ const StreamersList = () => {
       }
     };
     fetchData();
-    // setStreamers(streamers_data);
   }, []);
+
+  const handleUpdatavotes = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+    id: number,
+    upvote: number | undefined,
+    downvote: number | undefined
+  ) => {
+    e.preventDefault();
+    if (upvote !== undefined && e.currentTarget.innerHTML === "+") upvote++;
+    else if (downvote !== undefined && e.currentTarget.innerHTML === "-")
+      downvote++;
+    try {
+      await axios.put(`http://localhost:8800/api/streamers/${id}/vote`, {
+        upvote,
+        downvote,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    navigate(0);
+  };
   return (
     <div className='WrappStreamersList'>
-      {streamers.map((streamer) =>
-        streamers ? (
+      {streamers === null ? (
+        <h1>load data...</h1>
+      ) : (
+        streamers.map((streamer) => (
           <div key={streamer.id} className='WrappCard'>
             <div className='nameWrapp'>
               <h2>{streamer.name}</h2>
               <h5>{streamer.striming_platform}</h5>
             </div>
             <div className='vote'>
-              <span> +{streamer.upvote}</span>
-              <span> -{streamer.downvote}</span>
+              <span>
+                <button
+                  onClick={(e) =>
+                    handleUpdatavotes(
+                      e,
+                      streamer.id,
+                      streamer.upvote,
+                      streamer.downvote
+                    )
+                  }
+                >
+                  +
+                </button>
+                {streamer.upvote}
+              </span>
+              <span>
+                <button
+                  onClick={(e) =>
+                    handleUpdatavotes(
+                      e,
+                      streamer.id,
+                      streamer.upvote,
+                      streamer.downvote
+                    )
+                  }
+                >
+                  -
+                </button>
+                {streamer.downvote}
+              </span>
             </div>
             <Link to={`/streamer/${streamer.id}`}>Read more</Link>
           </div>
-        ) : (
-          <div>Not here yet</div>
-        )
+        ))
       )}
     </div>
   );
