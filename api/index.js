@@ -1,7 +1,7 @@
 import express from "express";
 import cors from "cors";
 
-import useStreamers, { emitStreamersUpdated } from "./routes/streamers.js";
+import useStreamers from "./routes/streamers.js";
 const app = express();
 const corsOptions = {
   origin: "http://localhost:5173",

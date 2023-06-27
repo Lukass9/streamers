@@ -22,3 +22,12 @@ io.on("connection", (socket) => {
   // Obsługa zdarzeń i logika WebSocket
   // ...
 });
+
+export async function emitStreamersUpdated() {
+  try {
+    const streamers = await getStreamers();
+    io.emit("streamers", streamers);
+  } catch (error) {
+    console.log(error);
+  }
+}
