@@ -3,58 +3,39 @@ import { useEffect, useState } from "react";
 import "./StreamersList.style.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-
-// const streamers_data = [
-//   {
-//     id: 1,
-//     name: "NoName",
-//     striming_platform: "youtube",
-//     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi qui reiciendis ex, rem illum aperiam impedit nesciunt inventore quo itaque amet earum maxime ipsum excepturi quidem expedita harum, laudantium quam?",
-//     upvote: 10,
-//     downvote: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Alex",
-//     striming_platform: "Twiter",
-//     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi qui reiciendis ex, rem illum aperiam impedit nesciunt inventore quo itaque amet earum maxime ipsum excepturi quidem expedita harum, laudantium quam?",
-//     upvote: 6,
-//     downvote: 4,
-//   },
-//   {
-//     id: 3,
-//     name: "lama_dev",
-//     striming_platform: "youtube",
-//     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi qui reiciendis ex, rem illum aperiam impedit nesciunt inventore quo itaque amet earum maxime ipsum excepturi quidem expedita harum, laudantium quam?",
-//     upvote: 20,
-//     downvote: 0,
-//   },
-//   {
-//     id: 4,
-//     name: "Arrow",
-//     striming_platform: "TikTok",
-//     desc: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi qui reiciendis ex, rem illum aperiam impedit nesciunt inventore quo itaque amet earum maxime ipsum excepturi quidem expedita harum, laudantium quam?",
-//     upvote: 4,
-//     downvote: 8,
-//   },
-// ];
+import io from "socket.io-client";
 
 const StreamersList = () => {
-  // const streamers: Streamer[] | null = streamers_data;
+  const socket = io("http://localhost:8800");
   const navigate = useNavigate();
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.get(`http://localhost:8800/api/streamers/`);
-        setStreamers(res.data);
-        // console.log(res.data);
-      } catch (err) {
-        console.log(err);
-      }
+    // Nasłuchuj zdarzenia 'streamers'
+    socket.on("streamers", (updatedStreamers) => {
+      console.log("Otrzymano listę streamerów:", updatedStreamers);
+      // Zaktualizuj stan aplikacji na podstawie otrzymanej listy streamerów
+      // setStreamers(updatedStreamers);
+    });
+
+    return () => {
+      // Wyczyść nasłuchiwanie zdarzenia przy usuwaniu komponentu
+      socket.off("streamers");
     };
-    fetchData();
   }, []);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await axios.get(`http://localhost:8800/api/streamers/`);
+  //       setStreamers(res.data);
+  //       // console.log(res.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   const handleUpdatavotes = async (
     e: React.MouseEvent<HTMLButtonElement>,
@@ -74,7 +55,7 @@ const StreamersList = () => {
     } catch (err) {
       console.log(err);
     }
-    navigate(0);
+    // navigate(0);
   };
   return (
     <div className='WrappStreamersList'>

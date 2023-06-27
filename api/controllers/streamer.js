@@ -13,17 +13,19 @@ export const addStreamer = (req, res) => {
     return res.status(201).json("Streamers has been added.");
   });
 };
-export const getStreamers = (req, res) => {
-  const q = "SELECT * FROM Streamers";
+export function getStreamers() {
+  return new Promise((resolve, reject) => {
+    const q = "SELECT * FROM Streamers";
 
-  db.all(q, (err, data) => {
-    if (err) {
-      res.status(500).send(err);
-    } else {
-      res.json(data);
-    }
+    db.all(q, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
   });
-};
+}
 export const getStreamer = (req, res) => {
   const id = req.params.id;
   const q = "SELECT * FROM Streamers WHERE id=?";
