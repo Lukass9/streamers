@@ -1,4 +1,6 @@
 import { db } from "../db.js";
+import { io } from "../index.js";
+import { sendUpdatedData } from "../socket.js";
 
 export const addStreamer = (req, res) => {
   const q =
@@ -10,6 +12,7 @@ export const addStreamer = (req, res) => {
     if (err) {
       return res.status(500).json(err);
     }
+    sendUpdatedData(io);
     return res.status(201).json("Streamers has been added.");
   });
 };
@@ -46,6 +49,7 @@ export const updateVote = (req, res) => {
     if (err) {
       return res.status(500).json(err);
     }
+    sendUpdatedData(io);
     return res.status(200).json("Votes has been changed.");
   });
 };

@@ -10,7 +10,7 @@ const StreamersList = () => {
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
 
   useEffect(() => {
-    const socket = io("http://localhost:3000");
+    const socket = io("http://localhost:8800");
     // Nasłuchuj zdarzenia 'streamers'
     socket.on("dataUpdated", (updatedStreamers) => {
       console.log("Otrzymano listę streamerów:", updatedStreamers);

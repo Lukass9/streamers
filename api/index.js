@@ -1,8 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { createServer } from "http";
-import { Server } from "socket.io";
-
+import { initializeSocket, sendUpdatedData } from "./socket.js";
 import useStreamers from "./routes/streamers.js";
 
 const app = express();
@@ -13,19 +12,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-
 app.use("/api/streamers", useStreamers);
 
 const server = createServer(app);
-const io = new Server(server);
-
-io.on("connection", (socket) => {
-  console.log("A user connected!");
-
-  socket.on("disconnect", () => {
-    console.log("A user disconnected!");
-  });
-});
+export const io = initializeSocket(server);
 
 const PORT = 8800;
 server.listen(PORT, () => {
