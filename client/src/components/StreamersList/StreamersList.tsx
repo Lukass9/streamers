@@ -1,25 +1,20 @@
 import { Streamer } from "../../types/types";
 import { useEffect, useState } from "react";
 import "./StreamersList.style.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import io from "socket.io-client";
 
 const StreamersList = () => {
-  const navigate = useNavigate();
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
 
   useEffect(() => {
     const socket = io("http://localhost:8800");
-    // Nasłuchuj zdarzenia 'streamers'
     socket.on("dataUpdated", (updatedStreamers) => {
-      console.log("Otrzymano listę streamerów:", updatedStreamers);
-      // Zaktualizuj stan aplikacji na podstawie otrzymanej listy streamerów
       setStreamers(updatedStreamers);
     });
 
     return () => {
-      // Wyczyść nasłuchiwanie zdarzenia przy usuwaniu komponentu
       socket.off("streamers");
     };
   }, []);
@@ -39,23 +34,17 @@ const StreamersList = () => {
 
   const handleUpdatavotes = async (
     e: React.MouseEvent<HTMLButtonElement>,
-    id: number,
-    upvote: number | undefined,
-    downvote: number | undefined
+    id: number
   ) => {
     e.preventDefault();
-    if (upvote !== undefined && e.currentTarget.innerHTML === "+") upvote++;
-    else if (downvote !== undefined && e.currentTarget.innerHTML === "-")
-      downvote++;
+    const vote = e.currentTarget.value;
     try {
       await axios.put(`http://localhost:8800/api/streamers/${id}/vote`, {
-        upvote,
-        downvote,
+        vote,
       });
     } catch (err) {
       console.log(err);
     }
-    // navigate(0);
   };
   return (
     <div className='WrappStreamersList'>
@@ -71,14 +60,8 @@ const StreamersList = () => {
             <div className='vote'>
               <span>
                 <button
-                  onClick={(e) =>
-                    handleUpdatavotes(
-                      e,
-                      streamer.id,
-                      streamer.upvote,
-                      streamer.downvote
-                    )
-                  }
+                  value='+'
+                  onClick={(e) => handleUpdatavotes(e, streamer.id)}
                 >
                   +
                 </button>
@@ -86,14 +69,8 @@ const StreamersList = () => {
               </span>
               <span>
                 <button
-                  onClick={(e) =>
-                    handleUpdatavotes(
-                      e,
-                      streamer.id,
-                      streamer.upvote,
-                      streamer.downvote
-                    )
-                  }
+                  value='-'
+                  onClick={(e) => handleUpdatavotes(e, streamer.id)}
                 >
                   -
                 </button>

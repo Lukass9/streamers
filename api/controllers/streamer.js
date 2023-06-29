@@ -1,6 +1,7 @@
 import { db } from "../db.js";
 import { io } from "../index.js";
 import { sendUpdatedData } from "../socket.js";
+import { getStreamersVotes } from "./helperFunctions.js";
 
 export const addStreamer = (req, res) => {
   const q =
@@ -39,12 +40,13 @@ export const getStreamer = (req, res) => {
     }
   });
 };
-export const updateVote = (req, res) => {
+export const updateVote = async (req, res) => {
   const id = req.params.id;
+  const vote = req.body.vote;
+
   const q = "UPDATE Streamers SET `upvote`=?,`downvote`=? WHERE `id`=?";
 
-  const values = [req.body.upvote, req.body.downvote, id];
-
+  const values = await getStreamersVotes(id, vote, res);
   db.run(q, values, (err, data) => {
     if (err) {
       return res.status(500).json(err);
