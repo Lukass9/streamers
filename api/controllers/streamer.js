@@ -43,6 +43,7 @@ export const getStreamer = (req, res) => {
 export const updateVote = async (req, res) => {
   const id = req.params.id;
   const vote = req.body.vote;
+  console.log(req.session);
 
   const q = "UPDATE Streamers SET `upvote`=?,`downvote`=? WHERE `id`=?";
 

@@ -11,13 +11,13 @@ export function initializeSocket(server) {
   io.on("connection", (socket) => {
     console.log("A user connected!");
 
-    db.all("SELECT * FROM Streamers", (err, rows) => {
+    db.all("SELECT * FROM Streamers", (err, data) => {
       if (err) {
         console.error(err);
         return;
       }
 
-      socket.emit("dataUpdated", rows);
+      socket.emit("dataUpdated", data);
     });
 
     socket.on("disconnect", () => {
