@@ -1,0 +1,61 @@
+@import "../../mediaQueries.scss";
+
+.WrappStreamersList{
+
+}
+.WrappCard{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 15px;
+  margin: 5px;
+}
+.nameWrapp{
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}
+.vote{
+  display: flex;
+}
+.vote span{
+  margin: 10px;
+}
+
+.wrappButton{
+  display: flex;
+  align-items: center;
+
+  button{
+    border: none;
+    margin: 0;
+    padding: 10px;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+
+    &:hover{
+      svg{
+        fill: black;
+      }
+    }
+    &:active{
+      svg{
+        fill: white;
+      }
+    }
+  }
+}
+
+.thumb{
+  width: 30px;
+  height: 30px;
+  transition: fill 0.3s ease-in-out;
+}
+.thumbUp{
+  fill: green;
+}
+.thumbDown{
+  transform: rotate(180deg);
+  fill: red;
+}
