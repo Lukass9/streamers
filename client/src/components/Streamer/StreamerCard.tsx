@@ -25,17 +25,15 @@ const StreamerCard = () => {
   }, [streamerId]);
 
   return (
-    <div>
+    <div className={style.Wrapp}>
       {streamer === null ? (
         <h1>loading streamer details...</h1>
       ) : (
-        <div className={style.Wrapp}>
-          <div className={style.WrappCard}>
-            <h2>{streamer.name}</h2>
-            <p>{streamer.striming_platform}</p>
-            <img src={rock} alt='Streamer' />
-            <span>{streamer.desc}</span>
-          </div>
+        <div className={style.WrappCard}>
+          <h2>{streamer.name}</h2>
+          <p>{streamer.striming_platform}</p>
+          <img src={rock} alt='Streamer' />
+          <span>{streamer.desc}</span>
         </div>
       )}
       <Link to='/'>Back</Link>

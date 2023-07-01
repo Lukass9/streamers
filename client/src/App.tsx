@@ -1,18 +1,12 @@
 import StreamerCard from "./components/Streamer/StreamerCard";
-import StreamerSubmission from "./components/StreamerSubmission/StreamerSubmission";
-import StreamersList from "./components/StreamersList/StreamersList";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import Home from "./page/home/home";
+import "./app.css";
 const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: (
-        <>
-          <StreamersList />
-          <StreamerSubmission />
-        </>
-      ),
+      element: <Home />,
     },
     {
       path: "/streamer/:id",
@@ -24,9 +18,11 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <>
-      <RouterProvider router={router} />
-    </>
+    <div className='app'>
+      <div className='container'>
+        <RouterProvider router={router} />
+      </div>
+    </div>
   );
 }
 

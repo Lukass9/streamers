@@ -1,9 +1,10 @@
 import { Streamer } from "../../types/types";
 import { useEffect, useState } from "react";
-import styles from "./StreamersList.module.css";
+import styles from "./StreamersList.module.scss";
 import { Link } from "react-router-dom";
 import axios, { AxiosError, AxiosStatic } from "axios";
 import io from "socket.io-client";
+import { ReactComponent as Thumb } from "../../assets/thumbs-up-line-icon.svg";
 
 const StreamersList = () => {
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
@@ -64,22 +65,23 @@ const StreamersList = () => {
               <h5>{streamer.striming_platform}</h5>
             </div>
             <div className={styles.vote}>
-              <span>
+              <span className={styles.wrappButton}>
                 <button
                   value='+'
                   onClick={(e) => handleUpdatavotes(e, streamer.id)}
                 >
-                  +
+                  <Thumb className={`${styles.thumbUp} ${styles.thumb}`} />
                 </button>
                 {streamer.upvote}
               </span>
-              <span>
+              <span className={styles.wrappButton}>
                 <button
                   value='-'
                   onClick={(e) => handleUpdatavotes(e, streamer.id)}
                 >
-                  -
+                  <Thumb className={`${styles.thumbDown} ${styles.thumb}`} />
                 </button>
+
                 {streamer.downvote}
               </span>
             </div>
