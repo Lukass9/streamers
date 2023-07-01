@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { Streamer } from "../../types/types";
+import rock from "../../assets/Rock.png";
+import style from "./StreamerCard.module.css";
 
 const StreamerCard = () => {
   const [streamer, setStreamer] = useState<Streamer | null>(null);
@@ -27,15 +29,14 @@ const StreamerCard = () => {
       {streamer === null ? (
         <h1>loading streamer details...</h1>
       ) : (
-        <>
-          <h2>{streamer.name}</h2>
-          <p>{streamer.striming_platform}</p>
-          <img
-            src='https://www.epidemicsound.com/blog/content/images/2021/12/How-to-live-stream-1.jpg'
-            alt='Streamer sitting before your computer'
-          />
-          <span>{streamer.desc}</span>
-        </>
+        <div className={style.Wrapp}>
+          <div className={style.WrappCard}>
+            <h2>{streamer.name}</h2>
+            <p>{streamer.striming_platform}</p>
+            <img src={rock} alt='Streamer' />
+            <span>{streamer.desc}</span>
+          </div>
+        </div>
       )}
       <Link to='/'>Back</Link>
     </div>

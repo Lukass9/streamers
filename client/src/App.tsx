@@ -1,4 +1,3 @@
-import "./App.css";
 import StreamerCard from "./components/Streamer/StreamerCard";
 import StreamerSubmission from "./components/StreamerSubmission/StreamerSubmission";
 import StreamersList from "./components/StreamersList/StreamersList";

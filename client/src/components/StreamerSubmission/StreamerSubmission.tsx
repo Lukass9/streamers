@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
-import "./StreamerSubmission.style.css";
+import axios, { AxiosError } from "axios";
+import styles from "./StreamerSubmission.module.css";
 
 const StreamerSubmission = () => {
   const [name, setName] = useState("");
@@ -9,20 +9,22 @@ const StreamerSubmission = () => {
 
   const handleSubbmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(platform);
-    try {
-      await axios.post("http://localhost:8800/api/streamers/", {
-        name,
-        striming_platform: platform,
-        desc,
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    if (name && platform && desc) {
+      try {
+        await axios.post("http://localhost:8800/api/streamers/", {
+          name,
+          striming_platform: platform,
+          desc,
+        });
+      } catch (error) {
+        const err = error as AxiosError;
+        alert(err.response?.data);
+      }
 
-    setName("");
-    setPlatform("Twitch");
-    setDesc("");
+      setName("");
+      setPlatform("Twitch");
+      setDesc("");
+    }
   };
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
@@ -35,9 +37,9 @@ const StreamerSubmission = () => {
   };
 
   return (
-    <div className='WrappStreamerSubmission'>
+    <div className={styles.WrappStreamerSubmission}>
       <form action=''>
-        <fieldset className='subField'>
+        <fieldset className={styles.subField}>
           <legend>Add new streamer</legend>
           <div className='inp'>
             <input

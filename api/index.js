@@ -2,20 +2,21 @@ import express from "express";
 import cors from "cors";
 import session from "express-session";
 import { createServer } from "http";
-import { initializeSocket, sendUpdatedData } from "./socket.js";
+import { initializeSocket } from "./socket.js";
 import useStreamers from "./routes/streamers.js";
 
 const app = express();
 app.use(
   session({
     secret: "secret-key",
-    resave: false,
+    resave: true,
     saveUninitialized: true,
     cookie: {
       httpOnly: true,
     },
   })
 );
+
 const corsOptions = {
   origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
   credentials: true,
@@ -23,6 +24,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
 app.use("/api/streamers", useStreamers);
 
 const server = createServer(app);
