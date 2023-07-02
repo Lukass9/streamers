@@ -2,60 +2,104 @@
 
 .WrappStreamersList{
 
-}
-.WrappCard{
-  display: flex;
-  flex-direction: column;
-  border: 1px solid grey;
-  border-radius: 15px;
-  margin: 5px;
-}
-.nameWrapp{
-  display: flex;
-  justify-content: space-between;
-  padding: 20px;
-}
-.vote{
-  display: flex;
-}
-.vote span{
-  margin: 10px;
-}
+  .WrappCard{
+    display: flex;
+    flex-direction: column;
+    box-shadow: -10px 14px 16px -7px rgba(191, 191, 191, 1);
+    // box-shadow: -25px 19px 15px -18px rgb(191, 191, 191);
+    border-radius: 15px;
+    margin: 15px 0;
+    overflow: hidden;
+  
+    .nameWrapp{
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    
+    .wrappVote{
+      display: flex;
+      justify-content: space-between;
+      .vote{
+        display: flex;
+      
+        .thumb{
+          width: 25px;
+          height: 25px;
+        }
+        .thumbUp{
+          fill: green;
+        }
+        .thumbDown{
+          transform: rotate(180deg);
+          fill: red;
+        }
+      
+        span{
+          margin: 5px;
+        }
+      }
+      .link{
+        background-color: rgb(243, 243, 243);
+        color: black;
+        text-decoration: none;
+        padding: 15px;
+        align-self: flex-end;
+        border-radius: 15px 0 0 0;
+        cursor: pointer;
+        transition: border-radius .6s ease;
+        box-shadow: 14px 14px 17px -7px rgba(191, 191, 191, 1);
 
-.wrappButton{
-  display: flex;
-  align-items: center;
 
-  button{
-    border: none;
-    margin: 0;
-    padding: 10px;
-    width: auto;
-    overflow: visible;
-    background: transparent;
 
-    &:hover{
-      svg{
-        fill: black;
+        &:hover{
+          border-radius: 15px 0 60px 0;
+        }
+      }
+
+      .wrappButton{
+        display: flex;
+        align-items: center;
+      
+        button{
+          border: none;
+          margin: 0;
+          padding: 3px;
+          width: auto;
+          overflow: visible;
+          background: transparent;
+      
+          &:hover{
+            svg{
+              stroke-width: 1px;
+              stroke: black;
+              cursor: pointer;
+            }
+          }
+          &:active{
+            svg{
+              stroke: white;
+            }
+          }
+        }
+      }
+
+    }
+  
+    .wrappPlatform{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 50px;
+      h5{
+        margin: 2px;
+      }
+      .platform{
+        width: 30px;
+        height: 30px;
       }
     }
-    &:active{
-      svg{
-        fill: white;
-      }
-    }
+    
   }
-}
-
-.thumb{
-  width: 30px;
-  height: 30px;
-  transition: fill 0.3s ease-in-out;
-}
-.thumbUp{
-  fill: green;
-}
-.thumbDown{
-  transform: rotate(180deg);
-  fill: red;
+  
 }
