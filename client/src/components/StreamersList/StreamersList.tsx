@@ -10,6 +10,7 @@ import { ReactComponent as YouTube } from "../../assets/platform/youtube.svg";
 import { ReactComponent as TikTok } from "../../assets/platform/tiktok.svg";
 import { ReactComponent as Kick } from "../../assets/platform/Kick.svg";
 import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
+import Message from "../Message/Message";
 
 const streamingPlatform = (platform: string) => {
   console.log(platform);
@@ -23,6 +24,8 @@ const streamingPlatform = (platform: string) => {
 
 const StreamersList = () => {
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
+  const [err, setErr] = useState<string>("");
+
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -45,7 +48,6 @@ const StreamersList = () => {
       socket.off("streamers");
     };
   }, []);
-
   const handleUpdatavotes = async (
     e: React.MouseEvent<HTMLButtonElement>,
     id: number
@@ -64,12 +66,13 @@ const StreamersList = () => {
       );
     } catch (error) {
       const err = error as AxiosError;
-      alert(err.response?.data);
+      setErr(err.response?.data as string);
     }
   };
 
   return (
     <div className={styles.WrappStreamersList}>
+      {err && <Message message={err} duration={3000} setErr={setErr} />}
       {streamers === null ? (
         <h2>load data...</h2>
       ) : (
@@ -86,6 +89,7 @@ const StreamersList = () => {
               <div className={styles.vote}>
                 <span className={styles.wrappButton}>
                   <button
+                    aria-label='upvote'
                     value='+'
                     onClick={(e) => handleUpdatavotes(e, streamer.id)}
                   >
@@ -95,6 +99,7 @@ const StreamersList = () => {
                 </span>
                 <span className={styles.wrappButton}>
                   <button
+                    aria-label='downvote'
                     value='-'
                     onClick={(e) => handleUpdatavotes(e, streamer.id)}
                   >
