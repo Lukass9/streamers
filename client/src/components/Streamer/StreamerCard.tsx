@@ -11,7 +11,6 @@ import { ReactComponent as Kick } from "../../assets/platform/Kick.svg";
 import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
 
 const streamingPlatform = (platform: string) => {
-  console.log(platform);
   if (platform === "Twitch") return <Twitch className={styles.platform} />;
   else if (platform === "YouTube")
     return <YouTube className={styles.platform} />;

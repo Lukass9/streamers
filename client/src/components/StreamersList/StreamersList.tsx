@@ -2,7 +2,7 @@ import { Streamer } from "../../types/types";
 import { useEffect, useState } from "react";
 import styles from "./StreamersList.module.scss";
 import { Link } from "react-router-dom";
-import axios, { AxiosError, AxiosStatic } from "axios";
+import axios, { AxiosError } from "axios";
 import io from "socket.io-client";
 import { ReactComponent as Thumb } from "../../assets/thumbs-up-line-icon.svg";
 import { ReactComponent as Twitch } from "../../assets/platform/twitch.svg";
@@ -13,7 +13,6 @@ import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
 import Message from "../Message/Message";
 
 const streamingPlatform = (platform: string) => {
-  console.log(platform);
   if (platform === "Twitch") return <Twitch className={styles.platform} />;
   else if (platform === "YouTube")
     return <YouTube className={styles.platform} />;

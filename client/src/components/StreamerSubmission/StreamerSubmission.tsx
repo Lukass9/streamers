@@ -1,11 +1,6 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import styles from "./StreamerSubmission.module.scss";
-import { ReactComponent as Twitch } from "../../assets/platform/twitch.svg";
-import { ReactComponent as YouTube } from "../../assets/platform/youtube.svg";
-import { ReactComponent as TikTok } from "../../assets/platform/tiktok.svg";
-import { ReactComponent as Kick } from "../../assets/platform/Kick.svg";
-import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
 
 const StreamerSubmission = () => {
   const [name, setName] = useState("");
