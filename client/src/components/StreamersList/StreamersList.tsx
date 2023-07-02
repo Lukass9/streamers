@@ -11,9 +11,18 @@ import { ReactComponent as TikTok } from "../../assets/platform/tiktok.svg";
 import { ReactComponent as Kick } from "../../assets/platform/Kick.svg";
 import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
 
+const streamingPlatform = (platform: string) => {
+  console.log(platform);
+  if (platform === "Twitch") return <Twitch className={styles.platform} />;
+  else if (platform === "YouTube")
+    return <YouTube className={styles.platform} />;
+  else if (platform === "TikTok") return <TikTok className={styles.platform} />;
+  else if (platform === "Kick") return <Kick className={styles.platform} />;
+  else if (platform === "Rumble") return <Rumble className={styles.platform} />;
+};
+
 const StreamersList = () => {
   const [streamers, setStreamers] = useState<Streamer[] | null>(null);
-
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
@@ -58,21 +67,11 @@ const StreamersList = () => {
       alert(err.response?.data);
     }
   };
-  const streamingPlatform = (platform: string) => {
-    console.log(platform);
-    if (platform === "Twitch") return <Twitch className={styles.platform} />;
-    else if (platform === "YouTube")
-      return <YouTube className={styles.platform} />;
-    else if (platform === "TikTok")
-      return <TikTok className={styles.platform} />;
-    else if (platform === "Kick") return <Kick className={styles.platform} />;
-    else if (platform === "Rumble")
-      return <Rumble className={styles.platform} />;
-  };
+
   return (
     <div className={styles.WrappStreamersList}>
       {streamers === null ? (
-        <h1>load data...</h1>
+        <h2>load data...</h2>
       ) : (
         streamers.map((streamer) => (
           <div key={streamer.id} className={styles.WrappCard}>

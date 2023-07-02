@@ -5,4 +5,5 @@ export type Streamer = {
   desc: string;
   upvote?: number;
   downvote?: number;
+  castVote?: boolean;
 };

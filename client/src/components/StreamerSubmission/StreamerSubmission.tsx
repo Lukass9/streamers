@@ -1,11 +1,17 @@
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
-import styles from "./StreamerSubmission.module.css";
+import styles from "./StreamerSubmission.module.scss";
+import { ReactComponent as Twitch } from "../../assets/platform/twitch.svg";
+import { ReactComponent as YouTube } from "../../assets/platform/youtube.svg";
+import { ReactComponent as TikTok } from "../../assets/platform/tiktok.svg";
+import { ReactComponent as Kick } from "../../assets/platform/Kick.svg";
+import { ReactComponent as Rumble } from "../../assets/platform/RUM.svg";
 
 const StreamerSubmission = () => {
   const [name, setName] = useState("");
   const [platform, setPlatform] = useState("Twitch");
   const [desc, setDesc] = useState("");
+  const [err, setErr] = useState<string>("");
 
   const handleSubbmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -16,14 +22,17 @@ const StreamerSubmission = () => {
           striming_platform: platform,
           desc,
         });
+        setErr("");
       } catch (error) {
         const err = error as AxiosError;
-        alert(err.response?.data);
+        setErr(err.response?.data as string);
       }
 
       setName("");
       setPlatform("Twitch");
       setDesc("");
+    } else {
+      setErr("Complete all form fields");
     }
   };
   const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -37,11 +46,12 @@ const StreamerSubmission = () => {
   };
 
   return (
-    <div className={styles.WrappStreamerSubmission}>
-      <form action=''>
+    <div className={styles.wrapp}>
+      <form>
         <fieldset className={styles.subField}>
           <legend>Add new streamer</legend>
-          <div className='inp'>
+          <div className={styles.inp}>
+            <label htmlFor='name'> Streamer name </label>
             <input
               type='text'
               id='name'
@@ -50,9 +60,9 @@ const StreamerSubmission = () => {
               value={name}
               onChange={handleChangeName}
             />
-            <label htmlFor='name'> Streamer name </label>
           </div>
-          <div className='inp'>
+          <div className={styles.inp}>
+            <label htmlFor='striming_platform'> Striming platform </label>
             <select
               name='striming_platform'
               id='striming_platform'
@@ -66,9 +76,9 @@ const StreamerSubmission = () => {
               <option value='Kick'>Kick</option>
               <option value='Rumble'>Rumble</option>
             </select>
-            <label htmlFor='striming_platform'> Striming platform </label>
           </div>
-          <div className='inp'>
+          <div className={styles.inp}>
+            <label htmlFor='desc'> Description </label>
             <textarea
               id='desc'
               name='desc'
@@ -76,8 +86,9 @@ const StreamerSubmission = () => {
               value={desc}
               onChange={handleChangeDesc}
             />
-            <label htmlFor='desc'> Description </label>
           </div>
+          {err && <p className={styles.error}>{err}</p>}
+
           <button onClick={handleSubbmit}>Add new streamer</button>
         </fieldset>
       </form>

@@ -1,7 +1,7 @@
 import StreamerCard from "./components/Streamer/StreamerCard";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./page/home/home";
-import "./app.css";
+import "./app.scss";
 const router = createBrowserRouter(
   [
     {
